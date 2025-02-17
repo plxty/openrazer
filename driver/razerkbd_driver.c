@@ -1524,7 +1524,7 @@ static ssize_t razer_attr_write_profile_led_red(struct device *dev, struct devic
         rgb = (struct razer_rgb *)&response.arguments[6];
         rgb->r = enabled;
 
-        request = razer_chroma_tartarus_set_led_state(rgb);
+        request = razer_chroma_extended_matrix_effect_static(VARSTORE, SIDE_STRIPE_LED, rgb);
         request.transaction_id.id = 0x1F;
         break;
     default:
@@ -1562,7 +1562,7 @@ static ssize_t razer_attr_write_profile_led_green(struct device *dev, struct dev
         rgb = (struct razer_rgb *)&response.arguments[6];
         rgb->g = enabled;
 
-        request = razer_chroma_tartarus_set_led_state(rgb);
+        request = razer_chroma_extended_matrix_effect_static(VARSTORE, SIDE_STRIPE_LED, rgb);
         request.transaction_id.id = 0x1F;
         break;
     default:
@@ -1599,7 +1599,7 @@ static ssize_t razer_attr_write_profile_led_blue(struct device *dev, struct devi
         rgb = (struct razer_rgb *)&response.arguments[6];
         rgb->b = enabled;
 
-        request = razer_chroma_tartarus_set_led_state(rgb);
+        request = razer_chroma_extended_matrix_effect_static(VARSTORE, SIDE_STRIPE_LED, rgb);
         request.transaction_id.id = 0x1F;
         break;
     default:
@@ -3156,7 +3156,7 @@ static ssize_t razer_attr_write_matrix_custom_frame(struct device *dev, struct d
             break;
 
         case USB_DEVICE_ID_RAZER_TARTARUS_PRO:
-            // Tartarus Pro has mapped linearly, TODO: OpenRGB made zones, how about us? TODO: Avoid hardcode:
+            // Tartarus Pro has mapped linearly to 1x21:
             // 01 02 03 04 05 INVALID
             // 06 07 08 09 10 INVALID
             // 11 12 13 14 15 INVALID
